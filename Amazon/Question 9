@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution{
+public:
+    int isValid(vector<vector<int>> mat){
+        // code here
+        unordered_set<string> us;
+        for(int i=0; i<9; i++){
+            for(int j=0; j<9; j++){
+                if(mat[i][j]!=0){
+                    string temp1 = "row"+to_string(i)+to_string(mat[i][j]);
+                    string temp2 = "column"+to_string(j)+to_string(mat[i][j]);
+                    string temp3 = "box"+to_string((i/3)*3+(j/3))+to_string(mat[i][j]);
+                    
+                    if(us.find(temp1)!=us.end()){
+                        return false;
+                    }
+                    if(us.find(temp2)!=us.end()){
+                        return false;
+                    }
+                    if(us.find(temp3)!=us.end()){
+                        return false;
+                    }
+                    us.insert(temp1);
+                    us.insert(temp2);
+                    us.insert(temp3);
+                }
+            }
+        }
+        return true;
+    }
+};
+
+// { Driver Code Starts.
+
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        vector<vector<int>> mat(9, vector<int>(9, 0));
+        for(int i = 0;i < 81;i++)
+            cin>>mat[i/9][i%9];
+        
+        Solution ob;
+        cout<<ob.isValid(mat)<<"\n";
+    }
+    return 0;
+}  // } Driver Code Ends
