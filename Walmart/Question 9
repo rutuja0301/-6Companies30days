@@ -4,27 +4,30 @@ using namespace std;
 class Solution
 {
 public:
-    double r, x, y;
-    Solution(double radius, double x_center, double y_center)
+    int util(vector<vector<int>> &dp, int s, int e)
     {
-        r = radius;
-        x = x_center;
-        y = y_center;
+        if (s >= e)
+            return 0;
+        if (dp[s][e] != 0)
+            return dp[s][e];
+        int res = INT_MAX;
+        for (int i = s; i <= e; i++)
+        {
+            int temp = i + max(util(dp, s, i - 1), util(dp, i + 1, e));
+            res = min(res, temp);
+        }
+        return dp[s][e] = res;
     }
-
-    vector<double> randPoint()
+    int getMoneyAmount(int n)
     {
-        double angle = ((double)rand() / RAND_MAX) * 2 * M_PI,
-               h = sqrt((double)rand() / RAND_MAX) * r,
-               x_ = cos(angle) * h,
-               y_ = sin(angle) * h;
-        return vector<double>{x + x_, y + y_};
+        vector<vector<int>> dp(n + 1, vector<int>(n + 1, 0));
+        return util(dp, 1, n);
     }
 };
 
 int main()
 {
-    Solution obj(12.00, 9.0, 7.0);
-    cout << obj.randPoint() << endl;
+    Solution obj;
+    cout << obj.getMoneyAmount(10) << endl;
     return 0;
 }
