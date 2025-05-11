@@ -1,0 +1,1 @@
+This repository is created as part of a challenge to consistently solve Data Structures and Algorithms (DSA) problems, with a focus on preparing for coding interviews at top tech companies. It includes a curated set of problems, detailed solutions, and optimized approaches in C++.
